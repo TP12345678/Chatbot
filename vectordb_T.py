@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 
