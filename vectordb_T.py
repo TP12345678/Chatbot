@@ -15,5 +15,5 @@ vectordb = Chroma.from_texts(
     embedding=embedding_model,
     persist_directory="chroma_db"  )
 
-vectordb.persist() #save to disk
+vectordb.persist() #savse to disk
 print("DB created")
