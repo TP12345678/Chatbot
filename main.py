@@ -1,8 +1,12 @@
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
+#import gradio as gr
 
+#all-MiniLM-L6-v2 - 22.7M
+#all-mpnet-base-v2 - 109M
+#embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
-embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 # Load existing ChromaDB
 chroma_db = Chroma(
@@ -16,7 +20,7 @@ while True:
     query = input("You: ")
 
     if query.lower().strip() == "exit":
-        print("Bye")
+        print("Thank you!")
         break
 
     # Embed query and search ChromaDB (with score)
@@ -26,7 +30,7 @@ while True:
         result, score = results_with_scores[0]
         print(f"Similarity Score: {score:.2f}") 
         
-        if score > 0.9:
+        if score < 0.7:
             print("AskIDC: Sorry, I don’t know that yet.")
         else:
             print("AskIDC:", result.page_content)
