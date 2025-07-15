@@ -37,7 +37,7 @@ while True:
 
     if results_with_scores:
         result, score = results_with_scores[0]
-        print(f"🔎 Similarity Score: {score:.2f}")
+        print(f" Similarity Score: {score:.2f}")
         print(f"Matched Content: {result.page_content}")
 
         if score < 0.5:
@@ -58,7 +58,7 @@ Please rewrite the answer in a clear, helpful, and chatbot-friendly tone.
             contents = [
                 types.Content(
                     role="user",
-                    parts=[types.Part.from_text(prompt_text)],
+                    parts=[types.Part(text=prompt_text)], # 1 part = 1 piece of content for gemini
                 )
             ]
 
@@ -70,7 +70,7 @@ Please rewrite the answer in a clear, helpful, and chatbot-friendly tone.
                 response_mime_type="text/plain"
             )
 
-            print("AskIDC (Gemini): ", end="")
+            print("AskIDC: ", end="")
             try:
                 for chunk in client.models.generate_content_stream(
                     model=model_name,
@@ -78,7 +78,7 @@ Please rewrite the answer in a clear, helpful, and chatbot-friendly tone.
                     config=config
                 ):
                     print(chunk.text, end="")
-                print("\n[✔ Gemini Response Complete]")
+                #print("\n[✔ Gemini Response Complete]")
             except Exception as e:
                 print("\nAskIDC: (Gemini error) Showing raw answer instead.")
                 print("Error:", type(e).__name__, "-", str(e))
